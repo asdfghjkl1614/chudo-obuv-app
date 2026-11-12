@@ -1,0 +1,21 @@
+﻿<Window x:Class="ChudoObuvApp.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Чудо Обувь — Вход"
+        Height="350" Width="420"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Вход в систему «Чудо Обувь»" FontSize="20" FontWeight="Bold" Foreground="#70B2AF" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <TextBlock Text="Выберите пользователя:" Margin="0,0,0,5"/>
+            <!-- Вот наш выпадающий список -->
+            <ComboBox x:Name="UserComboBox" Margin="0,0,0,15"/>
+
+            <Button Content="Войти" Width="120" HorizontalAlignment="Center" Click="Login_Click"/>
+
+            <!-- Вот наше поле для ошибок -->
+            <TextBlock x:Name="MessageText" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,15,0,0" FontWeight="Bold" Foreground="Red"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f2d7e1186903433baeb0c2ac2e9d5602" Name="Diagram1">
+        <EntityTypeShape EntityType="Chudo_obuvModel.Categorii" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Componenti" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Materiali" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Podcategoria" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Polzovateli" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Pozicii_zakazov" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Proizvodstvo" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Razmeri" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Roli" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Sklad" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Sostav_tovara" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Tovari" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Chudo_obuvModel.Zakazi" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Sostav_tovara_Componenti" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Sostav_tovara_Materiali" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Zakazi_Polzovateli" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Pozicii_zakazov_Razmeri" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Pozicii_zakazov_Tovari" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Pozicii_zakazov_Zakazi" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Sklad_Razmeri" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Sklad_Tovari" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.FK_Sostav_tovara_Tovari" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.Polzovateli_roli" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.Tovar_categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.Tovar_podcategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="Chudo_obuvModel.Tovar_proizvodstvo" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

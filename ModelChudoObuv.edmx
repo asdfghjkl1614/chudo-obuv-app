@@ -1,0 +1,998 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Chudo_obuvModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorii">
+          <Key>
+            <PropertyRef Name="id_categorii" />
+          </Key>
+          <Property Name="id_categorii" Type="int" Nullable="false" />
+          <Property Name="nazv_categorii" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Componenti">
+          <Key>
+            <PropertyRef Name="id_component" />
+          </Key>
+          <Property Name="id_component" Type="int" Nullable="false" />
+          <Property Name="nazv_component" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materiali">
+          <Key>
+            <PropertyRef Name="id_material" />
+          </Key>
+          <Property Name="id_material" Type="int" Nullable="false" />
+          <Property Name="nazv_material" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Podcategoria">
+          <Key>
+            <PropertyRef Name="id_podcategoria" />
+          </Key>
+          <Property Name="id_podcategoria" Type="int" Nullable="false" />
+          <Property Name="nazv_podcategoria" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Polzovateli">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fio" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Chudo_obuv.dbo.Polzovateli_roli" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Polzovateli_roli">
+          <Key>
+            <PropertyRef Name="id_roli" />
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="id_roli" Type="int" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pozicii_zakazov">
+          <Key>
+            <PropertyRef Name="id_pozicii" />
+          </Key>
+          <Property Name="id_pozicii" Type="int" Nullable="false" />
+          <Property Name="id_zakaza" Type="int" Nullable="false" />
+          <Property Name="id_tovara" Type="int" Nullable="false" />
+          <Property Name="id_razmera" Type="int" Nullable="false" />
+          <Property Name="kolichestvo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proizvodstvo">
+          <Key>
+            <PropertyRef Name="id_proizvodstva" />
+          </Key>
+          <Property Name="id_proizvodstva" Type="int" Nullable="false" />
+          <Property Name="nazv__proizvodstva" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Razmeri">
+          <Key>
+            <PropertyRef Name="id_razmer" />
+          </Key>
+          <Property Name="id_razmer" Type="int" Nullable="false" />
+          <Property Name="nazv_razmer" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roli">
+          <Key>
+            <PropertyRef Name="id_roli" />
+          </Key>
+          <Property Name="id_roli" Type="int" Nullable="false" />
+          <Property Name="nazv_roli" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sklad">
+          <Key>
+            <PropertyRef Name="id_tovara" />
+            <PropertyRef Name="id_razmera" />
+            <PropertyRef Name="dostupnoe_kolichestvo" />
+          </Key>
+          <Property Name="id_tovara" Type="int" Nullable="false" />
+          <Property Name="id_razmera" Type="int" Nullable="false" />
+          <Property Name="dostupnoe_kolichestvo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sostav_tovara">
+          <Key>
+            <PropertyRef Name="id_sostav" />
+          </Key>
+          <Property Name="id_sostav" Type="int" Nullable="false" />
+          <Property Name="id_tovar" Type="int" Nullable="false" />
+          <Property Name="id_component" Type="int" Nullable="false" />
+          <Property Name="id_material" Type="int" Nullable="false" />
+          <Property Name="procent" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Chudo_obuv.dbo.Tovar_categoria" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Tovar_categoria">
+          <Key>
+            <PropertyRef Name="id_tovara" />
+            <PropertyRef Name="id_categorii" />
+          </Key>
+          <Property Name="id_tovara" Type="int" Nullable="false" />
+          <Property Name="id_categorii" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Chudo_obuv.dbo.Tovar_podcategoria" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Tovar_podcategoria">
+          <Key>
+            <PropertyRef Name="id_tovara" />
+            <PropertyRef Name="id_podcategorii" />
+          </Key>
+          <Property Name="id_tovara" Type="int" Nullable="false" />
+          <Property Name="id_podcategorii" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Chudo_obuv.dbo.Tovar_proizvodstvo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Tovar_proizvodstvo">
+          <Key>
+            <PropertyRef Name="id_tovara" />
+            <PropertyRef Name="id_proizvodstva" />
+          </Key>
+          <Property Name="id_tovara" Type="int" Nullable="false" />
+          <Property Name="id_proizvodstva" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tovari">
+          <Key>
+            <PropertyRef Name="id_tovara" />
+          </Key>
+          <Property Name="id_tovara" Type="int" Nullable="false" />
+          <Property Name="nazv_tovara" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opisanie" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="cena" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zakazi">
+          <Key>
+            <PropertyRef Name="id_zakaza" />
+          </Key>
+          <Property Name="id_zakaza" Type="int" Nullable="false" />
+          <Property Name="data_zakaza" Type="date" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Polzovateli_roli_Polzovateli">
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="1" />
+          <End Role="Polzovateli_roli" Type="Self.Polzovateli_roli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Polzovateli">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="Polzovateli_roli">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Polzovateli_roli_Roli">
+          <End Role="Roli" Type="Self.Roli" Multiplicity="1" />
+          <End Role="Polzovateli_roli" Type="Self.Polzovateli_roli" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roli">
+              <PropertyRef Name="id_roli" />
+            </Principal>
+            <Dependent Role="Polzovateli_roli">
+              <PropertyRef Name="id_roli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozicii_zakazov_Razmeri">
+          <End Role="Razmeri" Type="Self.Razmeri" Multiplicity="1" />
+          <End Role="Pozicii_zakazov" Type="Self.Pozicii_zakazov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razmeri">
+              <PropertyRef Name="id_razmer" />
+            </Principal>
+            <Dependent Role="Pozicii_zakazov">
+              <PropertyRef Name="id_razmera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozicii_zakazov_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Pozicii_zakazov" Type="Self.Pozicii_zakazov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Pozicii_zakazov">
+              <PropertyRef Name="id_tovara" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozicii_zakazov_Zakazi">
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="1" />
+          <End Role="Pozicii_zakazov" Type="Self.Pozicii_zakazov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakazi">
+              <PropertyRef Name="id_zakaza" />
+            </Principal>
+            <Dependent Role="Pozicii_zakazov">
+              <PropertyRef Name="id_zakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sklad_Razmeri">
+          <End Role="Razmeri" Type="Self.Razmeri" Multiplicity="1" />
+          <End Role="Sklad" Type="Self.Sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razmeri">
+              <PropertyRef Name="id_razmer" />
+            </Principal>
+            <Dependent Role="Sklad">
+              <PropertyRef Name="id_razmera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sklad_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Sklad" Type="Self.Sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Sklad">
+              <PropertyRef Name="id_tovara" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sostav_tovara_Componenti">
+          <End Role="Componenti" Type="Self.Componenti" Multiplicity="1" />
+          <End Role="Sostav_tovara" Type="Self.Sostav_tovara" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Componenti">
+              <PropertyRef Name="id_component" />
+            </Principal>
+            <Dependent Role="Sostav_tovara">
+              <PropertyRef Name="id_component" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sostav_tovara_Materiali">
+          <End Role="Materiali" Type="Self.Materiali" Multiplicity="1" />
+          <End Role="Sostav_tovara" Type="Self.Sostav_tovara" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materiali">
+              <PropertyRef Name="id_material" />
+            </Principal>
+            <Dependent Role="Sostav_tovara">
+              <PropertyRef Name="id_material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sostav_tovara_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Sostav_tovara" Type="Self.Sostav_tovara" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Sostav_tovara">
+              <PropertyRef Name="id_tovar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_categoria_Categorii">
+          <End Role="Categorii" Type="Self.Categorii" Multiplicity="1" />
+          <End Role="Tovar_categoria" Type="Self.Tovar_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorii">
+              <PropertyRef Name="id_categorii" />
+            </Principal>
+            <Dependent Role="Tovar_categoria">
+              <PropertyRef Name="id_categorii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_categoria_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Tovar_categoria" Type="Self.Tovar_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Tovar_categoria">
+              <PropertyRef Name="id_tovara" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_podcategoria_Podcategoria">
+          <End Role="Podcategoria" Type="Self.Podcategoria" Multiplicity="1" />
+          <End Role="Tovar_podcategoria" Type="Self.Tovar_podcategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Podcategoria">
+              <PropertyRef Name="id_podcategoria" />
+            </Principal>
+            <Dependent Role="Tovar_podcategoria">
+              <PropertyRef Name="id_podcategorii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_podcategoria_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Tovar_podcategoria" Type="Self.Tovar_podcategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Tovar_podcategoria">
+              <PropertyRef Name="id_tovara" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_proizvodstvo_Proizvodstvo">
+          <End Role="Proizvodstvo" Type="Self.Proizvodstvo" Multiplicity="1" />
+          <End Role="Tovar_proizvodstvo" Type="Self.Tovar_proizvodstvo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvodstvo">
+              <PropertyRef Name="id_proizvodstva" />
+            </Principal>
+            <Dependent Role="Tovar_proizvodstvo">
+              <PropertyRef Name="id_proizvodstva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tovar_proizvodstvo_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Tovar_proizvodstvo" Type="Self.Tovar_proizvodstvo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Tovar_proizvodstvo">
+              <PropertyRef Name="id_tovara" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakazi_Polzovateli">
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="1" />
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Polzovateli">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="Zakazi">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Chudo_obuvModelContainer">
+          <EntitySet Name="Categorii" EntityType="Self.Categorii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Componenti" EntityType="Self.Componenti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materiali" EntityType="Self.Materiali" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Podcategoria" EntityType="Self.Podcategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Polzovateli" EntityType="Self.Polzovateli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pozicii_zakazov" EntityType="Self.Pozicii_zakazov" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proizvodstvo" EntityType="Self.Proizvodstvo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Razmeri" EntityType="Self.Razmeri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roli" EntityType="Self.Roli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sklad" EntityType="Self.Sklad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sostav_tovara" EntityType="Self.Sostav_tovara" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tovari" EntityType="Self.Tovari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakazi" EntityType="Self.Zakazi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Polzovateli_roli" EntityType="Self.Polzovateli_roli" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Polzovateli_roli].[id_roli] AS [id_roli], 
+    [Polzovateli_roli].[login] AS [login]
+    FROM [dbo].[Polzovateli_roli] AS [Polzovateli_roli]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tovar_categoria" EntityType="Self.Tovar_categoria" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tovar_categoria].[id_tovara] AS [id_tovara], 
+    [Tovar_categoria].[id_categorii] AS [id_categorii]
+    FROM [dbo].[Tovar_categoria] AS [Tovar_categoria]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tovar_podcategoria" EntityType="Self.Tovar_podcategoria" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tovar_podcategoria].[id_tovara] AS [id_tovara], 
+    [Tovar_podcategoria].[id_podcategorii] AS [id_podcategorii]
+    FROM [dbo].[Tovar_podcategoria] AS [Tovar_podcategoria]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tovar_proizvodstvo" EntityType="Self.Tovar_proizvodstvo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tovar_proizvodstvo].[id_tovara] AS [id_tovara], 
+    [Tovar_proizvodstvo].[id_proizvodstva] AS [id_proizvodstva]
+    FROM [dbo].[Tovar_proizvodstvo] AS [Tovar_proizvodstvo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Polzovateli_roli_Polzovateli" Association="Self.FK_Polzovateli_roli_Polzovateli">
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+            <End Role="Polzovateli_roli" EntitySet="Polzovateli_roli" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Polzovateli_roli_Roli" Association="Self.FK_Polzovateli_roli_Roli">
+            <End Role="Roli" EntitySet="Roli" />
+            <End Role="Polzovateli_roli" EntitySet="Polzovateli_roli" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozicii_zakazov_Razmeri" Association="Self.FK_Pozicii_zakazov_Razmeri">
+            <End Role="Razmeri" EntitySet="Razmeri" />
+            <End Role="Pozicii_zakazov" EntitySet="Pozicii_zakazov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozicii_zakazov_Tovari" Association="Self.FK_Pozicii_zakazov_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Pozicii_zakazov" EntitySet="Pozicii_zakazov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozicii_zakazov_Zakazi" Association="Self.FK_Pozicii_zakazov_Zakazi">
+            <End Role="Zakazi" EntitySet="Zakazi" />
+            <End Role="Pozicii_zakazov" EntitySet="Pozicii_zakazov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sklad_Razmeri" Association="Self.FK_Sklad_Razmeri">
+            <End Role="Razmeri" EntitySet="Razmeri" />
+            <End Role="Sklad" EntitySet="Sklad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sklad_Tovari" Association="Self.FK_Sklad_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Sklad" EntitySet="Sklad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sostav_tovara_Componenti" Association="Self.FK_Sostav_tovara_Componenti">
+            <End Role="Componenti" EntitySet="Componenti" />
+            <End Role="Sostav_tovara" EntitySet="Sostav_tovara" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sostav_tovara_Materiali" Association="Self.FK_Sostav_tovara_Materiali">
+            <End Role="Materiali" EntitySet="Materiali" />
+            <End Role="Sostav_tovara" EntitySet="Sostav_tovara" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sostav_tovara_Tovari" Association="Self.FK_Sostav_tovara_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Sostav_tovara" EntitySet="Sostav_tovara" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_categoria_Categorii" Association="Self.FK_Tovar_categoria_Categorii">
+            <End Role="Categorii" EntitySet="Categorii" />
+            <End Role="Tovar_categoria" EntitySet="Tovar_categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_categoria_Tovari" Association="Self.FK_Tovar_categoria_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Tovar_categoria" EntitySet="Tovar_categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_podcategoria_Podcategoria" Association="Self.FK_Tovar_podcategoria_Podcategoria">
+            <End Role="Podcategoria" EntitySet="Podcategoria" />
+            <End Role="Tovar_podcategoria" EntitySet="Tovar_podcategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_podcategoria_Tovari" Association="Self.FK_Tovar_podcategoria_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Tovar_podcategoria" EntitySet="Tovar_podcategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_proizvodstvo_Proizvodstvo" Association="Self.FK_Tovar_proizvodstvo_Proizvodstvo">
+            <End Role="Proizvodstvo" EntitySet="Proizvodstvo" />
+            <End Role="Tovar_proizvodstvo" EntitySet="Tovar_proizvodstvo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tovar_proizvodstvo_Tovari" Association="Self.FK_Tovar_proizvodstvo_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Tovar_proizvodstvo" EntitySet="Tovar_proizvodstvo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakazi_Polzovateli" Association="Self.FK_Zakazi_Polzovateli">
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+            <End Role="Zakazi" EntitySet="Zakazi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Chudo_obuvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorii">
+          <Key>
+            <PropertyRef Name="id_categorii" />
+          </Key>
+          <Property Name="id_categorii" Type="Int32" Nullable="false" />
+          <Property Name="nazv_categorii" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tovari" Relationship="Self.Tovar_categoria" FromRole="Categorii" ToRole="Tovari" />
+        </EntityType>
+        <EntityType Name="Componenti">
+          <Key>
+            <PropertyRef Name="id_component" />
+          </Key>
+          <Property Name="id_component" Type="Int32" Nullable="false" />
+          <Property Name="nazv_component" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sostav_tovara" Relationship="Self.FK_Sostav_tovara_Componenti" FromRole="Componenti" ToRole="Sostav_tovara" />
+        </EntityType>
+        <EntityType Name="Materiali">
+          <Key>
+            <PropertyRef Name="id_material" />
+          </Key>
+          <Property Name="id_material" Type="Int32" Nullable="false" />
+          <Property Name="nazv_material" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sostav_tovara" Relationship="Self.FK_Sostav_tovara_Materiali" FromRole="Materiali" ToRole="Sostav_tovara" />
+        </EntityType>
+        <EntityType Name="Podcategoria">
+          <Key>
+            <PropertyRef Name="id_podcategoria" />
+          </Key>
+          <Property Name="id_podcategoria" Type="Int32" Nullable="false" />
+          <Property Name="nazv_podcategoria" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tovari" Relationship="Self.Tovar_podcategoria" FromRole="Podcategoria" ToRole="Tovari" />
+        </EntityType>
+        <EntityType Name="Polzovateli">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fio" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Zakazi" Relationship="Self.FK_Zakazi_Polzovateli" FromRole="Polzovateli" ToRole="Zakazi" />
+          <NavigationProperty Name="Roli" Relationship="Self.Polzovateli_roli" FromRole="Polzovateli" ToRole="Roli" />
+        </EntityType>
+        <EntityType Name="Pozicii_zakazov">
+          <Key>
+            <PropertyRef Name="id_pozicii" />
+          </Key>
+          <Property Name="id_pozicii" Type="Int32" Nullable="false" />
+          <Property Name="id_zakaza" Type="Int32" Nullable="false" />
+          <Property Name="id_tovara" Type="Int32" Nullable="false" />
+          <Property Name="id_razmera" Type="Int32" Nullable="false" />
+          <Property Name="kolichestvo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Razmeri" Relationship="Self.FK_Pozicii_zakazov_Razmeri" FromRole="Pozicii_zakazov" ToRole="Razmeri" />
+          <NavigationProperty Name="Tovari" Relationship="Self.FK_Pozicii_zakazov_Tovari" FromRole="Pozicii_zakazov" ToRole="Tovari" />
+          <NavigationProperty Name="Zakazi" Relationship="Self.FK_Pozicii_zakazov_Zakazi" FromRole="Pozicii_zakazov" ToRole="Zakazi" />
+        </EntityType>
+        <EntityType Name="Proizvodstvo">
+          <Key>
+            <PropertyRef Name="id_proizvodstva" />
+          </Key>
+          <Property Name="id_proizvodstva" Type="Int32" Nullable="false" />
+          <Property Name="nazv__proizvodstva" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tovari" Relationship="Self.Tovar_proizvodstvo" FromRole="Proizvodstvo" ToRole="Tovari" />
+        </EntityType>
+        <EntityType Name="Razmeri">
+          <Key>
+            <PropertyRef Name="id_razmer" />
+          </Key>
+          <Property Name="id_razmer" Type="Int32" Nullable="false" />
+          <Property Name="nazv_razmer" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pozicii_zakazov" Relationship="Self.FK_Pozicii_zakazov_Razmeri" FromRole="Razmeri" ToRole="Pozicii_zakazov" />
+          <NavigationProperty Name="Sklad" Relationship="Self.FK_Sklad_Razmeri" FromRole="Razmeri" ToRole="Sklad" />
+        </EntityType>
+        <EntityType Name="Roli">
+          <Key>
+            <PropertyRef Name="id_roli" />
+          </Key>
+          <Property Name="id_roli" Type="Int32" Nullable="false" />
+          <Property Name="nazv_roli" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Polzovateli" Relationship="Self.Polzovateli_roli" FromRole="Roli" ToRole="Polzovateli" />
+        </EntityType>
+        <EntityType Name="Sklad">
+          <Key>
+            <PropertyRef Name="id_tovara" />
+            <PropertyRef Name="id_razmera" />
+            <PropertyRef Name="dostupnoe_kolichestvo" />
+          </Key>
+          <Property Name="id_tovara" Type="Int32" Nullable="false" />
+          <Property Name="id_razmera" Type="Int32" Nullable="false" />
+          <Property Name="dostupnoe_kolichestvo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Razmeri" Relationship="Self.FK_Sklad_Razmeri" FromRole="Sklad" ToRole="Razmeri" />
+          <NavigationProperty Name="Tovari" Relationship="Self.FK_Sklad_Tovari" FromRole="Sklad" ToRole="Tovari" />
+        </EntityType>
+        <EntityType Name="Sostav_tovara">
+          <Key>
+            <PropertyRef Name="id_sostav" />
+          </Key>
+          <Property Name="id_sostav" Type="Int32" Nullable="false" />
+          <Property Name="id_tovar" Type="Int32" Nullable="false" />
+          <Property Name="id_component" Type="Int32" Nullable="false" />
+          <Property Name="id_material" Type="Int32" Nullable="false" />
+          <Property Name="procent" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Componenti" Relationship="Self.FK_Sostav_tovara_Componenti" FromRole="Sostav_tovara" ToRole="Componenti" />
+          <NavigationProperty Name="Materiali" Relationship="Self.FK_Sostav_tovara_Materiali" FromRole="Sostav_tovara" ToRole="Materiali" />
+          <NavigationProperty Name="Tovari" Relationship="Self.FK_Sostav_tovara_Tovari" FromRole="Sostav_tovara" ToRole="Tovari" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tovari">
+          <Key>
+            <PropertyRef Name="id_tovara" />
+          </Key>
+          <Property Name="id_tovara" Type="Int32" Nullable="false" />
+          <Property Name="nazv_tovara" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opisanie" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cena" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pozicii_zakazov" Relationship="Self.FK_Pozicii_zakazov_Tovari" FromRole="Tovari" ToRole="Pozicii_zakazov" />
+          <NavigationProperty Name="Sklad" Relationship="Self.FK_Sklad_Tovari" FromRole="Tovari" ToRole="Sklad" />
+          <NavigationProperty Name="Sostav_tovara" Relationship="Self.FK_Sostav_tovara_Tovari" FromRole="Tovari" ToRole="Sostav_tovara" />
+          <NavigationProperty Name="Categorii" Relationship="Self.Tovar_categoria" FromRole="Tovari" ToRole="Categorii" />
+          <NavigationProperty Name="Podcategoria" Relationship="Self.Tovar_podcategoria" FromRole="Tovari" ToRole="Podcategoria" />
+          <NavigationProperty Name="Proizvodstvo" Relationship="Self.Tovar_proizvodstvo" FromRole="Tovari" ToRole="Proizvodstvo" />
+        </EntityType>
+        <EntityType Name="Zakazi">
+          <Key>
+            <PropertyRef Name="id_zakaza" />
+          </Key>
+          <Property Name="id_zakaza" Type="Int32" Nullable="false" />
+          <Property Name="data_zakaza" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Polzovateli" Relationship="Self.FK_Zakazi_Polzovateli" FromRole="Zakazi" ToRole="Polzovateli" />
+          <NavigationProperty Name="Pozicii_zakazov" Relationship="Self.FK_Pozicii_zakazov_Zakazi" FromRole="Zakazi" ToRole="Pozicii_zakazov" />
+        </EntityType>
+        <Association Name="FK_Sostav_tovara_Componenti">
+          <End Role="Componenti" Type="Self.Componenti" Multiplicity="1" />
+          <End Role="Sostav_tovara" Type="Self.Sostav_tovara" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Componenti">
+              <PropertyRef Name="id_component" />
+            </Principal>
+            <Dependent Role="Sostav_tovara">
+              <PropertyRef Name="id_component" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sostav_tovara_Materiali">
+          <End Role="Materiali" Type="Self.Materiali" Multiplicity="1" />
+          <End Role="Sostav_tovara" Type="Self.Sostav_tovara" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materiali">
+              <PropertyRef Name="id_material" />
+            </Principal>
+            <Dependent Role="Sostav_tovara">
+              <PropertyRef Name="id_material" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakazi_Polzovateli">
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="1" />
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Polzovateli">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="Zakazi">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozicii_zakazov_Razmeri">
+          <End Role="Razmeri" Type="Self.Razmeri" Multiplicity="1" />
+          <End Role="Pozicii_zakazov" Type="Self.Pozicii_zakazov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razmeri">
+              <PropertyRef Name="id_razmer" />
+            </Principal>
+            <Dependent Role="Pozicii_zakazov">
+              <PropertyRef Name="id_razmera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozicii_zakazov_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Pozicii_zakazov" Type="Self.Pozicii_zakazov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Pozicii_zakazov">
+              <PropertyRef Name="id_tovara" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pozicii_zakazov_Zakazi">
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="1" />
+          <End Role="Pozicii_zakazov" Type="Self.Pozicii_zakazov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakazi">
+              <PropertyRef Name="id_zakaza" />
+            </Principal>
+            <Dependent Role="Pozicii_zakazov">
+              <PropertyRef Name="id_zakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sklad_Razmeri">
+          <End Role="Razmeri" Type="Self.Razmeri" Multiplicity="1" />
+          <End Role="Sklad" Type="Self.Sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razmeri">
+              <PropertyRef Name="id_razmer" />
+            </Principal>
+            <Dependent Role="Sklad">
+              <PropertyRef Name="id_razmera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sklad_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Sklad" Type="Self.Sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Sklad">
+              <PropertyRef Name="id_tovara" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sostav_tovara_Tovari">
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="1" />
+          <End Role="Sostav_tovara" Type="Self.Sostav_tovara" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tovari">
+              <PropertyRef Name="id_tovara" />
+            </Principal>
+            <Dependent Role="Sostav_tovara">
+              <PropertyRef Name="id_tovar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Polzovateli_roli">
+          <End Role="Polzovateli" Type="Self.Polzovateli" Multiplicity="*" />
+          <End Role="Roli" Type="Self.Roli" Multiplicity="*" />
+        </Association>
+        <Association Name="Tovar_categoria">
+          <End Role="Categorii" Type="Self.Categorii" Multiplicity="*" />
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="*" />
+        </Association>
+        <Association Name="Tovar_podcategoria">
+          <End Role="Podcategoria" Type="Self.Podcategoria" Multiplicity="*" />
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="*" />
+        </Association>
+        <Association Name="Tovar_proizvodstvo">
+          <End Role="Proizvodstvo" Type="Self.Proizvodstvo" Multiplicity="*" />
+          <End Role="Tovari" Type="Self.Tovari" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Chudo_obuvEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorii" EntityType="Self.Categorii" />
+          <EntitySet Name="Componenti" EntityType="Self.Componenti" />
+          <EntitySet Name="Materiali" EntityType="Self.Materiali" />
+          <EntitySet Name="Podcategoria" EntityType="Self.Podcategoria" />
+          <EntitySet Name="Polzovateli" EntityType="Self.Polzovateli" />
+          <EntitySet Name="Pozicii_zakazov" EntityType="Self.Pozicii_zakazov" />
+          <EntitySet Name="Proizvodstvo" EntityType="Self.Proizvodstvo" />
+          <EntitySet Name="Razmeri" EntityType="Self.Razmeri" />
+          <EntitySet Name="Roli" EntityType="Self.Roli" />
+          <EntitySet Name="Sklad" EntityType="Self.Sklad" />
+          <EntitySet Name="Sostav_tovara" EntityType="Self.Sostav_tovara" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tovari" EntityType="Self.Tovari" />
+          <EntitySet Name="Zakazi" EntityType="Self.Zakazi" />
+          <AssociationSet Name="FK_Sostav_tovara_Componenti" Association="Self.FK_Sostav_tovara_Componenti">
+            <End Role="Componenti" EntitySet="Componenti" />
+            <End Role="Sostav_tovara" EntitySet="Sostav_tovara" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sostav_tovara_Materiali" Association="Self.FK_Sostav_tovara_Materiali">
+            <End Role="Materiali" EntitySet="Materiali" />
+            <End Role="Sostav_tovara" EntitySet="Sostav_tovara" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakazi_Polzovateli" Association="Self.FK_Zakazi_Polzovateli">
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+            <End Role="Zakazi" EntitySet="Zakazi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozicii_zakazov_Razmeri" Association="Self.FK_Pozicii_zakazov_Razmeri">
+            <End Role="Razmeri" EntitySet="Razmeri" />
+            <End Role="Pozicii_zakazov" EntitySet="Pozicii_zakazov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozicii_zakazov_Tovari" Association="Self.FK_Pozicii_zakazov_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Pozicii_zakazov" EntitySet="Pozicii_zakazov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pozicii_zakazov_Zakazi" Association="Self.FK_Pozicii_zakazov_Zakazi">
+            <End Role="Zakazi" EntitySet="Zakazi" />
+            <End Role="Pozicii_zakazov" EntitySet="Pozicii_zakazov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sklad_Razmeri" Association="Self.FK_Sklad_Razmeri">
+            <End Role="Razmeri" EntitySet="Razmeri" />
+            <End Role="Sklad" EntitySet="Sklad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sklad_Tovari" Association="Self.FK_Sklad_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Sklad" EntitySet="Sklad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sostav_tovara_Tovari" Association="Self.FK_Sostav_tovara_Tovari">
+            <End Role="Tovari" EntitySet="Tovari" />
+            <End Role="Sostav_tovara" EntitySet="Sostav_tovara" />
+          </AssociationSet>
+          <AssociationSet Name="Polzovateli_roli" Association="Self.Polzovateli_roli">
+            <End Role="Polzovateli" EntitySet="Polzovateli" />
+            <End Role="Roli" EntitySet="Roli" />
+          </AssociationSet>
+          <AssociationSet Name="Tovar_categoria" Association="Self.Tovar_categoria">
+            <End Role="Categorii" EntitySet="Categorii" />
+            <End Role="Tovari" EntitySet="Tovari" />
+          </AssociationSet>
+          <AssociationSet Name="Tovar_podcategoria" Association="Self.Tovar_podcategoria">
+            <End Role="Podcategoria" EntitySet="Podcategoria" />
+            <End Role="Tovari" EntitySet="Tovari" />
+          </AssociationSet>
+          <AssociationSet Name="Tovar_proizvodstvo" Association="Self.Tovar_proizvodstvo">
+            <End Role="Proizvodstvo" EntitySet="Proizvodstvo" />
+            <End Role="Tovari" EntitySet="Tovari" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Chudo_obuvModelContainer" CdmEntityContainer="Chudo_obuvEntities">
+          <EntitySetMapping Name="Categorii">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Categorii">
+              <MappingFragment StoreEntitySet="Categorii">
+                <ScalarProperty Name="id_categorii" ColumnName="id_categorii" />
+                <ScalarProperty Name="nazv_categorii" ColumnName="nazv_categorii" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Componenti">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Componenti">
+              <MappingFragment StoreEntitySet="Componenti">
+                <ScalarProperty Name="id_component" ColumnName="id_component" />
+                <ScalarProperty Name="nazv_component" ColumnName="nazv_component" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materiali">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Materiali">
+              <MappingFragment StoreEntitySet="Materiali">
+                <ScalarProperty Name="id_material" ColumnName="id_material" />
+                <ScalarProperty Name="nazv_material" ColumnName="nazv_material" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Podcategoria">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Podcategoria">
+              <MappingFragment StoreEntitySet="Podcategoria">
+                <ScalarProperty Name="id_podcategoria" ColumnName="id_podcategoria" />
+                <ScalarProperty Name="nazv_podcategoria" ColumnName="nazv_podcategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Polzovateli">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Polzovateli">
+              <MappingFragment StoreEntitySet="Polzovateli">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pozicii_zakazov">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Pozicii_zakazov">
+              <MappingFragment StoreEntitySet="Pozicii_zakazov">
+                <ScalarProperty Name="id_pozicii" ColumnName="id_pozicii" />
+                <ScalarProperty Name="id_zakaza" ColumnName="id_zakaza" />
+                <ScalarProperty Name="id_tovara" ColumnName="id_tovara" />
+                <ScalarProperty Name="id_razmera" ColumnName="id_razmera" />
+                <ScalarProperty Name="kolichestvo" ColumnName="kolichestvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proizvodstvo">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Proizvodstvo">
+              <MappingFragment StoreEntitySet="Proizvodstvo">
+                <ScalarProperty Name="id_proizvodstva" ColumnName="id_proizvodstva" />
+                <ScalarProperty Name="nazv__proizvodstva" ColumnName="nazv__proizvodstva" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Razmeri">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Razmeri">
+              <MappingFragment StoreEntitySet="Razmeri">
+                <ScalarProperty Name="id_razmer" ColumnName="id_razmer" />
+                <ScalarProperty Name="nazv_razmer" ColumnName="nazv_razmer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roli">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Roli">
+              <MappingFragment StoreEntitySet="Roli">
+                <ScalarProperty Name="id_roli" ColumnName="id_roli" />
+                <ScalarProperty Name="nazv_roli" ColumnName="nazv_roli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sklad">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Sklad">
+              <MappingFragment StoreEntitySet="Sklad">
+                <ScalarProperty Name="id_tovara" ColumnName="id_tovara" />
+                <ScalarProperty Name="id_razmera" ColumnName="id_razmera" />
+                <ScalarProperty Name="dostupnoe_kolichestvo" ColumnName="dostupnoe_kolichestvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sostav_tovara">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Sostav_tovara">
+              <MappingFragment StoreEntitySet="Sostav_tovara">
+                <ScalarProperty Name="id_sostav" ColumnName="id_sostav" />
+                <ScalarProperty Name="id_tovar" ColumnName="id_tovar" />
+                <ScalarProperty Name="id_component" ColumnName="id_component" />
+                <ScalarProperty Name="id_material" ColumnName="id_material" />
+                <ScalarProperty Name="procent" ColumnName="procent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tovari">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Tovari">
+              <MappingFragment StoreEntitySet="Tovari">
+                <ScalarProperty Name="id_tovara" ColumnName="id_tovara" />
+                <ScalarProperty Name="nazv_tovara" ColumnName="nazv_tovara" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="opisanie" ColumnName="opisanie" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakazi">
+            <EntityTypeMapping TypeName="Chudo_obuvModel.Zakazi">
+              <MappingFragment StoreEntitySet="Zakazi">
+                <ScalarProperty Name="id_zakaza" ColumnName="id_zakaza" />
+                <ScalarProperty Name="data_zakaza" ColumnName="data_zakaza" />
+                <ScalarProperty Name="login" ColumnName="login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Polzovateli_roli" TypeName="Chudo_obuvModel.Polzovateli_roli" StoreEntitySet="Polzovateli_roli">
+            <EndProperty Name="Polzovateli">
+              <ScalarProperty Name="login" ColumnName="login" />
+            </EndProperty>
+            <EndProperty Name="Roli">
+              <ScalarProperty Name="id_roli" ColumnName="id_roli" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Tovar_categoria" TypeName="Chudo_obuvModel.Tovar_categoria" StoreEntitySet="Tovar_categoria">
+            <EndProperty Name="Categorii">
+              <ScalarProperty Name="id_categorii" ColumnName="id_categorii" />
+            </EndProperty>
+            <EndProperty Name="Tovari">
+              <ScalarProperty Name="id_tovara" ColumnName="id_tovara" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Tovar_podcategoria" TypeName="Chudo_obuvModel.Tovar_podcategoria" StoreEntitySet="Tovar_podcategoria">
+            <EndProperty Name="Podcategoria">
+              <ScalarProperty Name="id_podcategoria" ColumnName="id_podcategorii" />
+            </EndProperty>
+            <EndProperty Name="Tovari">
+              <ScalarProperty Name="id_tovara" ColumnName="id_tovara" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Tovar_proizvodstvo" TypeName="Chudo_obuvModel.Tovar_proizvodstvo" StoreEntitySet="Tovar_proizvodstvo">
+            <EndProperty Name="Proizvodstvo">
+              <ScalarProperty Name="id_proizvodstva" ColumnName="id_proizvodstva" />
+            </EndProperty>
+            <EndProperty Name="Tovari">
+              <ScalarProperty Name="id_tovara" ColumnName="id_tovara" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

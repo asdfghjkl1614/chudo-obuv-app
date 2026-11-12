@@ -1,0 +1,142 @@
+﻿<Window x:Class="ChudoObuvApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Чудо Обувь — Каталог" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Calibri"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Background" Value="#70B2AF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style x:Key="CardBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#D2F6E7"/>
+            <Setter Property="BorderBrush" Value="#70B2AF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <Grid Grid.Row="0" Background="#D2F6E7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
+                <TextBlock Text="Чудо Обувь" FontSize="28" FontWeight="Bold" Foreground="#333"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
+                <TextBlock x:Name="TxtCurrentUser" Text="Гость" FontSize="16" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                <Button x:Name="BtnOrders" Content="Заказы" Click="BtnOrders_Click" Margin="0,0,10,0" Visibility="Collapsed"/>
+                <Button x:Name="BtnAuth" Content="Войти" Click="BtnAuth_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Панель поиска и фильтров -->
+        <Grid Grid.Row="1" Margin="20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Поиск:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox Grid.Column="1" x:Name="TxtSearch" TextChanged="Filter_Changed" Margin="0,0,15,0"/>
+
+            <TextBlock Grid.Column="2" Text="Категория:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <ComboBox Grid.Column="3" x:Name="CmbCategory" SelectionChanged="Filter_Changed" Margin="0,0,15,0"/>
+
+            <TextBlock Grid.Column="4" Text="Сортировка:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <ComboBox Grid.Column="5" x:Name="CmbSort" SelectionChanged="Filter_Changed" HorizontalAlignment="Left" Width="200">
+                <ComboBoxItem Content="Без сортировки"/>
+                <ComboBoxItem Content="Цена по возрастанию"/>
+                <ComboBoxItem Content="Цена по убыванию"/>
+            </ComboBox>
+
+            <TextBlock Grid.Column="7" x:Name="TxtCount" Text="Показано: 0" VerticalAlignment="Center" Margin="20,0,0,0"/>
+        </Grid>
+
+        <!-- Список товаров -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
+            <ItemsControl x:Name="ListTovari" HorizontalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CardBorderStyle}" Width="900" Background="{Binding CardColor}" Margin="0,0,0,10" 
+                                MouseLeftButtonUp="Border_Click" Cursor="Hand">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="{Binding PhotoPath}" Width="110" Height="110" Stretch="Uniform"/>
+
+                                <StackPanel Grid.Column="1" Margin="15,0">
+                                    <TextBlock Text="{Binding Nazv_tovara}" FontSize="16" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding ProizvodstvoStr}" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding CategoriaStr}" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding QtyStr}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding RazmeryStr}" Foreground="Gray" TextWrapping="Wrap"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding PriceWithDiscountStr}" FontSize="20" FontWeight="Bold" Foreground="#70B2AF" HorizontalAlignment="Right"/>
+
+                                    <TextBlock Text="{Binding BasePrice}" FontSize="12" Foreground="Gray" TextDecorations="Strikethrough" HorizontalAlignment="Right" Margin="0,2,0,0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasDiscount}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock Text="Скидка 25%" FontSize="12" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Right">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasDiscount}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>
